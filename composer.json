@@ -1,0 +1,66 @@
+{
+  "name": "axvi/laravel-maintenance",
+  "description": "Advanced maintenance mode management for Laravel — IP whitelisting, named bypass tokens, scheduled windows, and more.",
+  "keywords": [
+    "laravel",
+    "maintenance",
+    "maintenance-mode",
+    "maintenance-page",
+    "503"
+  ],
+  "license": "MIT",
+  "type": "library",
+  "homepage": "https://github.com/axvilab/laravel-maintenance",
+  "authors": [
+    {
+      "name": "axvidev",
+      "email": "axvi.dev@gmail.com",
+      "homepage": "https://github.com/axvidev",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/axvilab/laravel-maintenance",
+    "issues": "https://github.com/axvilab/laravel-maintenance/issues"
+  },
+  "require": {
+    "php": "^8.1",
+    "illuminate/support": "^10.0|^11.0|^12.0",
+    "illuminate/database": "^10.0|^11.0|^12.0",
+    "illuminate/http": "^10.0|^11.0|^12.0",
+    "illuminate/console": "^10.0|^11.0|^12.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^8.0|^9.0|^10.0",
+    "phpunit/phpunit": "^10.0|^11.0",
+    "laravel/pint": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Axvi\\Maintenance\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Axvi\\Maintenance\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Axvi\\Maintenance\\MaintenanceServiceProvider"
+      ],
+      "aliases": {
+        "Maintenance": "Axvi\\Maintenance\\Facades\\Maintenance"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
