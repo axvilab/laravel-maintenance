@@ -3,7 +3,7 @@
 > Advanced maintenance mode management for Laravel 10, 11 and 12.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/axvi/laravel-maintenance.svg?style=flat-square)](https://packagist.org/packages/axvi/laravel-maintenance)
-[![License](https://img.shields.io/github/license/axvilab/laravel-maintenance.svg?style=flat-square)](LICENSE.md)
+[![License](https://img.shields.io/packagist/l/axvi/laravel-maintenance.svg?style=flat-square)](LICENSE.md)
 
 ## Features
 
