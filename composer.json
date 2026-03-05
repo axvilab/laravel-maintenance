@@ -28,6 +28,7 @@
     "illuminate/support": "^10.0|^11.0|^12.0",
     "illuminate/database": "^10.0|^11.0|^12.0",
     "illuminate/http": "^10.0|^11.0|^12.0",
+    "illuminate/cache": "^10.0|^11.0|^12.0",
     "illuminate/console": "^10.0|^11.0|^12.0"
   },
   "require-dev": {
@@ -60,6 +61,10 @@
     "allow-plugins": {
       "composer/package-versions-deprecated": true
     }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "lint": "vendor/bin/pint"
   },
   "minimum-stability": "stable",
   "prefer-stable": true

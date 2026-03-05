@@ -1,0 +1,80 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.1', '8.2', '8.3', '8.4', '8.5']
+        laravel: ['10.*', '11.*', '12.*']
+        testbench: ['8.*', '9.*', '10.*']
+        exclude:
+          # Laravel 10 = Testbench 8 (PHP 8.1+)
+          - laravel: '10.*'
+            testbench: '9.*'
+          - laravel: '10.*'
+            testbench: '10.*'
+          # Laravel 11 = Testbench 9 (PHP 8.2+)
+          - laravel: '11.*'
+            testbench: '8.*'
+          - laravel: '11.*'
+            testbench: '10.*'
+          - laravel: '11.*'
+            php: '8.1'
+          # Laravel 12 = Testbench 10 (PHP 8.2+)
+          - laravel: '12.*'
+            testbench: '8.*'
+          - laravel: '12.*'
+            testbench: '9.*'
+          - laravel: '12.*'
+            php: '8.1'
+          # PHP 8.5 — only with Laravel 11+ (Laravel 10 EOL)
+          - laravel: '10.*'
+            php: '8.5'
+
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: sqlite3
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer require "illuminate/support:${{ matrix.laravel }}" "illuminate/database:${{ matrix.laravel }}" "illuminate/http:${{ matrix.laravel }}" "illuminate/console:${{ matrix.laravel }}" "illuminate/cache:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --prefer-dist --no-interaction
+
+      - name: Run tests
+        run: vendor/bin/phpunit
+
+  code-style:
+    runs-on: ubuntu-latest
+    name: Code Style
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run Pint
+        run: vendor/bin/pint --test
