@@ -7,6 +7,7 @@ use Axvi\Maintenance\Console\Commands\MaintenanceIpCommand;
 use Axvi\Maintenance\Console\Commands\MaintenanceStatusCommand;
 use Axvi\Maintenance\Console\Commands\MaintenanceTokenCommand;
 use Axvi\Maintenance\Console\Commands\MaintenanceUpCommand;
+use Axvi\Maintenance\Http\Controllers\BypassController;
 use Axvi\Maintenance\Http\Middleware\CheckMaintenanceMode;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -88,11 +89,7 @@ class MaintenanceServiceProvider extends ServiceProvider
 
         $prefix = config('maintenance.bypass_route.prefix', 'maintenance');
 
-        $router->get("{$prefix}/{maintenanceToken}", function (string $maintenanceToken) {
-            /** @var CheckMaintenanceMode $middleware */
-            $middleware = $this->app->make(CheckMaintenanceMode::class);
-
-            return $middleware->handleBypassRoute(request(), $maintenanceToken);
-        })->name('maintenance.bypass');
+        $router->get("{$prefix}/{maintenanceToken}", BypassController::class)
+            ->name('maintenance.bypass');
     }
 }
