@@ -94,9 +94,10 @@ return [
 
     // Middleware settings
     'middleware' => [
-        'cookie_name'     => 'laravel_maintenance',
-        'cookie_lifetime' => 43200, // minutes (12 hours)
-        'header_name'     => 'X-Maintenance-Token',
+        'cookie_name'      => 'laravel_maintenance',
+        'cookie_lifetime'  => 43200, // minutes (12 hours)
+        'header_name'      => 'X-Maintenance-Token',
+        'cookie_same_site' => 'lax',
     ],
 
     // Response settings
@@ -169,6 +170,12 @@ php artisan maintenance:token list
 Visit `https://yourapp.com/maintenance/{secret-token}` — sets a bypass cookie valid for 12 hours.
 
 The route prefix is configurable via `bypass_route.prefix` in the config. You can also disable URL bypass entirely by setting `bypass_route.enabled` to `false`.
+
+The cookie is issued with `SameSite=Lax` (`middleware.cookie_same_site`). Do not
+tighten this to `strict` if your app signs users in through an external identity
+provider: the browser withholds a `strict` cookie on every cross-site navigation,
+so a user coming back from Azure AD, Google or an OAuth provider reaches your
+callback URL without it and is served the 503 page mid-login.
 
 **Header bypass (API)**
 

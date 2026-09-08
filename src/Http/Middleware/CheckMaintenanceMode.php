@@ -88,9 +88,10 @@ class CheckMaintenanceMode
 
         $cookieName = config('maintenance.middleware.cookie_name', 'laravel_maintenance');
         $cookieLifetime = config('maintenance.middleware.cookie_lifetime', 43200);
+        $cookieSameSite = config('maintenance.middleware.cookie_same_site', 'lax');
 
         return redirect('/')->withCookie(
-            cookie($cookieName, $token, $cookieLifetime, '/', null, true, true, false, 'strict')
+            cookie($cookieName, $token, $cookieLifetime, '/', null, true, true, false, $cookieSameSite)
         );
     }
 

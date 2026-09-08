@@ -95,6 +95,42 @@ class MiddlewareTest extends TestCase
         $response->assertCookie(config('maintenance.middleware.cookie_name', 'laravel_maintenance'));
     }
 
+    public function test_bypass_cookie_is_lax_so_it_survives_an_external_sso_redirect(): void
+    {
+        $this->manager->enable();
+        $this->manager->addToken('bypass', 'my-bypass-token');
+
+        $prefix = config('maintenance.bypass_route.prefix', 'maintenance');
+        $cookieName = config('maintenance.middleware.cookie_name', 'laravel_maintenance');
+
+        $response = $this->get("/{$prefix}/my-bypass-token");
+
+        $cookie = collect($response->headers->getCookies())
+            ->first(fn ($cookie) => $cookie->getName() === $cookieName);
+
+        $this->assertNotNull($cookie);
+        $this->assertSame('lax', $cookie->getSameSite());
+    }
+
+    public function test_bypass_cookie_same_site_is_configurable(): void
+    {
+        config(['maintenance.middleware.cookie_same_site' => 'strict']);
+
+        $this->manager->enable();
+        $this->manager->addToken('bypass', 'my-bypass-token');
+
+        $prefix = config('maintenance.bypass_route.prefix', 'maintenance');
+        $cookieName = config('maintenance.middleware.cookie_name', 'laravel_maintenance');
+
+        $response = $this->get("/{$prefix}/my-bypass-token");
+
+        $cookie = collect($response->headers->getCookies())
+            ->first(fn ($cookie) => $cookie->getName() === $cookieName);
+
+        $this->assertNotNull($cookie);
+        $this->assertSame('strict', $cookie->getSameSite());
+    }
+
     public function test_bypass_route_returns_404_for_invalid_token(): void
     {
         $this->manager->enable();

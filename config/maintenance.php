@@ -70,6 +70,14 @@ return [
         'cookie_name' => 'laravel_maintenance',
         'cookie_lifetime' => 43200, // minutes (12 hours)
         'header_name' => 'X-Maintenance-Token',
+
+        /*
+        | SameSite policy for the bypass cookie. Keep 'lax': with 'strict' the
+        | browser withholds the cookie on every cross-site navigation, so a user
+        | returning from an external identity provider (Azure AD, Google, ...)
+        | lands on the callback URL without it and gets the 503 page.
+        */
+        'cookie_same_site' => 'lax',
     ],
 
     /*
