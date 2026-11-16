@@ -2,6 +2,7 @@
 
 namespace Axvi\Maintenance\Tests\Feature;
 
+use Axvi\Maintenance\Http\Middleware\CheckMaintenanceMode;
 use Axvi\Maintenance\MaintenanceManager;
 use Axvi\Maintenance\Models\MaintenanceToken;
 use Axvi\Maintenance\Tests\TestCase;
@@ -18,7 +19,7 @@ class MiddlewareTest extends TestCase
 
         // Register a simple test route
         $this->app['router']->get('/test', fn () => 'OK')
-            ->middleware(\Axvi\Maintenance\Http\Middleware\CheckMaintenanceMode::class);
+            ->middleware(CheckMaintenanceMode::class);
     }
 
     public function test_passes_through_when_not_in_maintenance(): void
@@ -155,9 +156,9 @@ class MiddlewareTest extends TestCase
         config(['maintenance.except' => ['api/health', 'webhook/*']]);
 
         $this->app['router']->get('/api/health', fn () => 'healthy')
-            ->middleware(\Axvi\Maintenance\Http\Middleware\CheckMaintenanceMode::class);
+            ->middleware(CheckMaintenanceMode::class);
         $this->app['router']->get('/webhook/stripe', fn () => 'ok')
-            ->middleware(\Axvi\Maintenance\Http\Middleware\CheckMaintenanceMode::class);
+            ->middleware(CheckMaintenanceMode::class);
 
         $this->manager->enable();
 

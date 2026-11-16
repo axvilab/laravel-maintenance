@@ -11,6 +11,7 @@ use Axvi\Maintenance\Http\Controllers\BypassController;
 use Axvi\Maintenance\Http\Middleware\CheckMaintenanceMode;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 class MaintenanceServiceProvider extends ServiceProvider
@@ -84,7 +85,7 @@ class MaintenanceServiceProvider extends ServiceProvider
             return;
         }
 
-        /** @var \Illuminate\Routing\Router $router */
+        /** @var Router $router */
         $router = $this->app['router'];
 
         $prefix = config('maintenance.bypass_route.prefix', 'maintenance');

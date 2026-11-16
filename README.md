@@ -1,6 +1,6 @@
 # axvi/laravel-maintenance
 
-> Advanced maintenance mode management for Laravel 10, 11 and 12.
+> Advanced maintenance mode management for Laravel 12 and 13.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/axvi/laravel-maintenance.svg?style=flat-square)](https://packagist.org/packages/axvi/laravel-maintenance)
 [![License](https://img.shields.io/packagist/l/axvi/laravel-maintenance.svg?style=flat-square)](LICENSE.md)
@@ -21,11 +21,13 @@
 
 ## Requirements
 
-|                | PHP 8.1 | PHP 8.2 | PHP 8.3 | PHP 8.4 | PHP 8.5 |
-|----------------|---------|---------|---------|---------|---------|
-| **Laravel 10** | yes     | yes     | yes     | yes     | —       |
-| **Laravel 11** | —       | yes     | yes     | yes     | yes     |
-| **Laravel 12** | —       | yes     | yes     | yes     | yes     |
+|                | PHP 8.2 | PHP 8.3 | PHP 8.4 | PHP 8.5 |
+|----------------|---------|---------|---------|---------|
+| **Laravel 12** | yes     | yes     | yes     | yes     |
+| **Laravel 13** | —       | yes     | yes     | yes     |
+
+Laravel 10 and 11 are no longer installable with Composer's default security policy;
+use version 1.0.x of this package for them.
 
 ## Installation
 

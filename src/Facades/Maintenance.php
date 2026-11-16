@@ -2,6 +2,7 @@
 
 namespace Axvi\Maintenance\Facades;
 
+use Axvi\Maintenance\MaintenanceManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getStatus()
  * @method static void flushCache()
  *
- * @see \Axvi\Maintenance\MaintenanceManager
+ * @see MaintenanceManager
  */
 class Maintenance extends Facade
 {

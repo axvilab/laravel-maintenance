@@ -2,6 +2,7 @@
 
 namespace Axvi\Maintenance\Tests;
 
+use Axvi\Maintenance\Facades\Maintenance;
 use Axvi\Maintenance\MaintenanceServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -24,7 +25,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageAliases($app): array
     {
         return [
-            'Maintenance' => \Axvi\Maintenance\Facades\Maintenance::class,
+            'Maintenance' => Maintenance::class,
         ];
     }
 

@@ -7,6 +7,7 @@ use Axvi\Maintenance\Events\MaintenanceModeEnabled;
 use Axvi\Maintenance\Models\MaintenanceIp;
 use Axvi\Maintenance\Models\MaintenanceSetting;
 use Axvi\Maintenance\Models\MaintenanceToken;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
@@ -201,7 +202,7 @@ class MaintenanceManager
         return in_array($ip, $allowedIps, true);
     }
 
-    protected function cacheStore(): \Illuminate\Contracts\Cache\Repository
+    protected function cacheStore(): Repository
     {
         $store = config('maintenance.cache.store');
 
